@@ -3,47 +3,7 @@ Real-Time Collaborative Document Editor
 
 High Level Design
 
-                                      +-----------------------+
-                                      |       Users           |
-                                      |  (Browser/Frontend)   |
-                                      +----------+------------+
-                                                 |
-                                                 | HTTP (REST) / WebSocket
-                                                 v
-+----------------------+        +----------------+------------------+
-|   S3 + CloudFront    |        |       API Gateway / Load Balancer |
-| (Static Web Hosting) |        |   (Routes HTTP + WebSocket calls) |
-+----------+-----------+        +----------------+------------------+
-           |                                    |
-           |                        +-----------+-----------+
-           |                        |     WebSocket Servers  |
-           |                        |  (Collaborative Engine)|
-           |                        +-----------+-----------+
-           |                                    |
-           |                                    |
-           |                        +-----------+------------+
-           |                        |   Redis (Elasticache)  |
-           |                        |  - Pub/Sub Channels    |
-           |                        |  - In-memory Document  |
-           |                        +-----------+------------+
-           |                                    |
-           |                                    |
-+----------v-----------+         +-------------v-------------+
-|   Document Service   |         |     Auth & Access Layer   |
-|  (REST APIs - ECS)   |         |  (User mgmt, tokens, ACL) |
-+----------+-----------+         +-------------+-------------+
-           |                                     |
-     +-----v----------+              +-----------v-----------+
-     |   MongoDB Atlas|              |     MySQL (RDS)       |
-     | (Doc bodies,    |              | (Users, ACLs, shares) |
-     |  versions, ops) |              +-----------------------+
-     +-----------------+
-
-                         +-------------------------------+
-                         |     Kafka (optional)          |
-                         | - Audit Logs, Real-time Feed  |
-                         | - Document events stream      |
-                         +-------------------------------+
+![alt text](HLD.png)
 
 Key Interactions
 
