@@ -1,0 +1,13 @@
+✅ Redis (Runtime Only, not persistent)
+
+    Key: doc:{doc_uid}
+
+    Value: serialized in-memory document (CRDT/OT)
+
+    TTL: Expires if idle for X minutes
+
+    Also used for:
+
+        Pub/Sub channels: doc:abc123:updates
+
+        Cursor/user presence data

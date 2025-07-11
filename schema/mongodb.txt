@@ -1,0 +1,36 @@
+✅ 2. MongoDB — For Unstructured/Versioned Document Content
+
+Ideal for:
+
+    Actual document content
+
+    Real-time ops (insert, delete)
+
+    Versions/snapshots
+
+ documents collection (MongoDB)
+
+{
+  "_id": "doc_uid",          // Matches MySQL doc_uid
+  "content": {
+    "ops": [                 // Quill Delta-style or CRDT/OT serialized structure
+      { "insert": "Hello " },
+      { "insert": "World", "attributes": { "bold": true } }
+    ]
+  },
+  "version": 42,
+  "active_users": ["user1", "user2"],
+  "last_saved": ISODate("..."),
+  "is_crdt": true
+}
+
+ versions collection (optional)
+
+{
+  "_id": ObjectId(),
+  "doc_id": "doc_uid",
+  "version_number": 41,
+  "snapshot": { ... },         // Full content
+  "created_at": ISODate("..."),
+  "created_by": "user_id"
+}
